@@ -381,38 +381,6 @@ public abstract class Projection implements Cloneable, Serializable {
         return bounds;
     }
 
-    public static void main (String[] args) {
-        Projection p = new OrteliusProjection();
-        Ellipsoid unarySphere = new Ellipsoid(null, 1, 0, null);
-        p.setEllipsoid(unarySphere);
-        p.initialize();
-        p.testBinarySearchInverse();
-    }
-
-    public void testBinarySearchInverse() {
-        Point2D.Double pt1 = new Point2D.Double();
-        Point2D.Double pt2 = new Point2D.Double();
-
-        for (int lon = -180; lon <= 180; lon++) {
-            for (int lat = -89; lat < 90; lat++) {
-                if (!inside(lon, lat)) {
-                    continue;
-                }
-                transform(lon, lat, pt1);
-                binarySearchInverse(pt1.x, pt1.y, 
-                        Math.toRadians(0),
-                        Math.toRadians(0),
-                        pt2);
-                double lon2 = Math.toDegrees(pt2.x);
-                double lat2 = Math.toDegrees(pt2.y);
-                double d = Math.hypot(lon - lon2, lat - lat2);
-                if (d > 1e-6) {
-                    System.out.println(lon + "/" + lat + ": " + d);
-                }
-            }
-        }
-    }
-
     /**
      * Compute the inverse projection by a binary search.
      * Use this method carefully! It is slow and only an approximation for
@@ -584,15 +552,6 @@ public abstract class Projection implements Cloneable, Serializable {
         // projection type
         if (this instanceof CylindricalProjection) {
             sb.append("cylindrical ");
-        }
-        if (this instanceof ConicProjection) {
-            sb.append("conic ");
-        }
-        if (this instanceof PseudoCylindricalProjection) {
-            sb.append("pseudo cylindrical ");
-        }
-        if (this instanceof AzimuthalProjection) {
-            sb.append("azimuthal ");
         }
 
         // distortion
