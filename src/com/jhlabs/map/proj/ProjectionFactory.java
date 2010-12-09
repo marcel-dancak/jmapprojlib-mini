@@ -326,6 +326,8 @@ public class ProjectionFactory {
             registry = new Hashtable();
             nameMap = new Hashtable();
 
+            register("latlong", NullProjection.class);
+            register("longlat", NullProjection.class);
             register("merc", MercatorProjection.class);
             register("omerc", ObliqueMercatorProjection.class);
             register("tmerc", TransverseMercatorProjection.class);
