@@ -16,20 +16,20 @@ limitations under the License.
 
 package com.jhlabs.map.proj;
 
-import java.awt.*;
-import java.awt.geom.*;
+
+import com.jhlabs.geom.*;
 
 /**
  * A projection which does nothing. Use this for drawing non-geographical overlays.
  */
 public class NullProjection extends Projection {
 	
-	public Point2D.Double transform( Point2D.Double src, Point2D.Double dst ) {
+	public Point2D transform( Point2D src, Point2D dst ) {
 		dst.x = src.x;
 		dst.y = src.y;
 		return dst;
 	}
-	
+	/*
 	public Shape projectPath(Shape path, AffineTransform t, boolean filled) {
 		if ( t != null )
 			t.createTransformedShape( path );
@@ -39,7 +39,7 @@ public class NullProjection extends Projection {
 	public Shape getBoundingShape() {
 		return null;
 	}
-	
+	*/
 	public boolean isRectilinear() {
 		return true;
 	}

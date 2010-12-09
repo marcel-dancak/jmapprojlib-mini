@@ -15,7 +15,7 @@ limitations under the License.
  */
 package com.jhlabs.map.proj;
 
-import java.awt.geom.*;
+import com.jhlabs.geom.*;
 import com.jhlabs.map.*;
 import java.io.Serializable;
 
@@ -144,7 +144,7 @@ public abstract class Projection implements Cloneable, Serializable {
     /**
      * Project a lat/long point (in degrees), producing a result in metres
      */
-    public Point2D.Double transform(Point2D.Double src, Point2D.Double dst) {
+    public Point2D transform(Point2D src, Point2D dst) {
         double x = src.x * DTR;
         if (projectionLongitude != 0) {
             x = MapMath.normalizeLongitude(x - projectionLongitude);
@@ -162,7 +162,7 @@ public abstract class Projection implements Cloneable, Serializable {
      * is useful for projecting line features crossing +/180 degree of longitude.
      * Bernhard Jenny, May 2010.
      */
-    public final Point2D.Double transform(double lon, double lat, Point2D.Double dst) {
+    public final Point2D transform(double lon, double lat, Point2D dst) {
         lon = MapMath.normalizeLongitude(lon * DTR - projectionLongitude);
         project(lon, lat * DTR, dst);
         dst.x = totalScale * dst.x + totalFalseEasting;
@@ -173,7 +173,7 @@ public abstract class Projection implements Cloneable, Serializable {
     /**
      * Project a lat/long point, producing a result in metres
      */
-    public Point2D.Double transformRadians(Point2D.Double src, Point2D.Double dst) {
+    public Point2D transformRadians(Point2D src, Point2D dst) {
         double x = src.x;
         if (projectionLongitude != 0) {
             x = MapMath.normalizeLongitude(x - projectionLongitude);
@@ -191,7 +191,7 @@ public abstract class Projection implements Cloneable, Serializable {
      * is useful for projecting line features crossing +/180 degree of longitude.
      * Bernhard Jenny, May 2010.
      */
-    public final Point2D.Double transformRadians(double lon, double lat, Point2D.Double dst) {
+    public final Point2D transformRadians(double lon, double lat, Point2D dst) {
         lon = MapMath.normalizeLongitude(lon - projectionLongitude);
         project(lon, lat, dst);
         dst.x = totalScale * dst.x + totalFalseEasting;
@@ -207,7 +207,7 @@ public abstract class Projection implements Cloneable, Serializable {
      * @param dst The projected point.
      * @return The projected point, identical to parameter dst.
      */
-    public Point2D.Double project(double x, double y, Point2D.Double dst) {
+    public Point2D project(double x, double y, Point2D dst) {
         dst.x = x;
         dst.y = y;
         return dst;
@@ -217,8 +217,8 @@ public abstract class Projection implements Cloneable, Serializable {
      * Project a number of lat/long points (in degrees), producing a result in metres
      */
     public void transform(double[] srcPoints, int srcOffset, double[] dstPoints, int dstOffset, int numPoints) {
-        Point2D.Double in = new Point2D.Double();
-        Point2D.Double out = new Point2D.Double();
+        Point2D in = new Point2D();
+        Point2D out = new Point2D();
         for (int i = 0; i < numPoints; i++) {
             in.x = srcPoints[srcOffset++];
             in.y = srcPoints[srcOffset++];
@@ -232,8 +232,8 @@ public abstract class Projection implements Cloneable, Serializable {
      * Project a number of lat/long points (in radians), producing a result in metres
      */
     public void transformRadians(double[] srcPoints, int srcOffset, double[] dstPoints, int dstOffset, int numPoints) {
-        Point2D.Double in = new Point2D.Double();
-        Point2D.Double out = new Point2D.Double();
+        Point2D in = new Point2D();
+        Point2D out = new Point2D();
         for (int i = 0; i < numPoints; i++) {
             in.x = srcPoints[srcOffset++];
             in.y = srcPoints[srcOffset++];
@@ -246,7 +246,7 @@ public abstract class Projection implements Cloneable, Serializable {
     /**
      * Inverse-project a point (in metres), producing a lat/long result in degrees
      */
-    public Point2D.Double inverseTransform(Point2D.Double src, Point2D.Double dst) {
+    public Point2D inverseTransform(Point2D src, Point2D dst) {
         double x = (src.x - totalFalseEasting) / totalScale;
         double y = (src.y - totalFalseNorthing) / totalScale;
         projectInverse(x, y, dst);
@@ -266,7 +266,7 @@ public abstract class Projection implements Cloneable, Serializable {
     /**
      * Inverse-project a point (in metres), producing a lat/long result in radians
      */
-    public Point2D.Double inverseTransformRadians(Point2D.Double src, Point2D.Double dst) {
+    public Point2D inverseTransformRadians(Point2D src, Point2D dst) {
         double x = (src.x - totalFalseEasting) / totalScale;
         double y = (src.y - totalFalseNorthing) / totalScale;
         projectInverse(x, y, dst);
@@ -285,7 +285,7 @@ public abstract class Projection implements Cloneable, Serializable {
      * Inverse-project a point (in meters), producing a lat/long result in radians.
      * Added by Bernhard Jenny, May 2007.
      */
-    public void inverseTransformRadians(double srcX, double srcY, Point2D.Double dst) {
+    public void inverseTransformRadians(double srcX, double srcY, Point2D dst) {
         double x = (srcX - totalFalseEasting) / totalScale;
         double y = (srcY - totalFalseNorthing) / totalScale;
         projectInverse(x, y, dst);
@@ -303,7 +303,7 @@ public abstract class Projection implements Cloneable, Serializable {
     /**
      * The method which actually does the inverse projection. This should be overridden for all projections.
      */
-    public Point2D.Double projectInverse(double x, double y, Point2D.Double dst) {
+    public Point2D projectInverse(double x, double y, Point2D dst) {
         dst.x = x;
         dst.y = y;
         return dst;
@@ -313,8 +313,8 @@ public abstract class Projection implements Cloneable, Serializable {
      * Inverse-project a number of points (in metres), producing a lat/long result in degrees
      */
     public void inverseTransform(double[] srcPoints, int srcOffset, double[] dstPoints, int dstOffset, int numPoints) {
-        Point2D.Double in = new Point2D.Double();
-        Point2D.Double out = new Point2D.Double();
+        Point2D in = new Point2D();
+        Point2D out = new Point2D();
         for (int i = 0; i < numPoints; i++) {
             in.x = srcPoints[srcOffset++];
             in.y = srcPoints[srcOffset++];
@@ -328,8 +328,8 @@ public abstract class Projection implements Cloneable, Serializable {
      * Inverse-project a number of points (in metres), producing a lat/long result in radians
      */
     public void inverseTransformRadians(double[] srcPoints, int srcOffset, double[] dstPoints, int dstOffset, int numPoints) {
-        Point2D.Double in = new Point2D.Double();
-        Point2D.Double out = new Point2D.Double();
+        Point2D in = new Point2D();
+        Point2D out = new Point2D();
         for (int i = 0; i < numPoints; i++) {
             in.x = srcPoints[srcOffset++];
             in.y = srcPoints[srcOffset++];
@@ -344,8 +344,8 @@ public abstract class Projection implements Cloneable, Serializable {
      * This is only a rough estimate.
      */
     public Rectangle2D inverseTransform(Rectangle2D r) {
-        Point2D.Double in = new Point2D.Double();
-        Point2D.Double out = new Point2D.Double();
+        Point2D in = new Point2D();
+        Point2D out = new Point2D();
         Rectangle2D bounds = null;
         if (isRectilinear()) {
             for (int ix = 0; ix < 2; ix++) {
@@ -356,7 +356,7 @@ public abstract class Projection implements Cloneable, Serializable {
                     in.y = y;
                     inverseTransform(in, out);
                     if (ix == 0 && iy == 0) {
-                        bounds = new Rectangle2D.Double(out.x, out.y, 0, 0);
+                        bounds = new Rectangle2D(out.x, out.y, 0, 0);
                     } else {
                         bounds.add(out.x, out.y);
                     }
@@ -371,7 +371,7 @@ public abstract class Projection implements Cloneable, Serializable {
                     in.y = y;
                     inverseTransform(in, out);
                     if (ix == 0 && iy == 0) {
-                        bounds = new Rectangle2D.Double(out.x, out.y, 0, 0);
+                        bounds = new Rectangle2D(out.x, out.y, 0, 0);
                     } else {
                         bounds.add(out.x, out.y);
                     }
@@ -390,7 +390,7 @@ public abstract class Projection implements Cloneable, Serializable {
      * @param y The projected y coordinate relative to the unary sphere.
      * @param lp A point that will receive the result.
      */
-    protected void binarySearchInverse(double x, double y, Point2D.Double lp) {
+    protected void binarySearchInverse(double x, double y, Point2D lp) {
         binarySearchInverse(x, y, 0, 0, lp);
     }
 
@@ -406,7 +406,7 @@ public abstract class Projection implements Cloneable, Serializable {
      * @param lp A point that will receive the result.
      */
     protected void binarySearchInverse(double x, double y,
-            double lon, double lat, Point2D.Double lp) {
+            double lon, double lat, Point2D lp) {
 
         // tolerance for approximating longitude and latitude
         final double TOL = 1e-9; // less than a hundreth of a second
@@ -442,8 +442,8 @@ public abstract class Projection implements Cloneable, Serializable {
      * Transform a bounding box. This is only a rough estimate.
      */
     public Rectangle2D transform(Rectangle2D r) {
-        Point2D.Double in = new Point2D.Double();
-        Point2D.Double out = new Point2D.Double();
+        Point2D in = new Point2D();
+        Point2D out = new Point2D();
         Rectangle2D bounds = null;
         if (isRectilinear()) {
             for (int ix = 0; ix < 2; ix++) {
@@ -454,7 +454,7 @@ public abstract class Projection implements Cloneable, Serializable {
                     in.y = y;
                     transform(in, out);
                     if (ix == 0 && iy == 0) {
-                        bounds = new Rectangle2D.Double(out.x, out.y, 0, 0);
+                        bounds = new Rectangle2D(out.x, out.y, 0, 0);
                     } else {
                         bounds.add(out.x, out.y);
                     }
@@ -469,7 +469,7 @@ public abstract class Projection implements Cloneable, Serializable {
                     in.y = y;
                     transform(in, out);
                     if (ix == 0 && iy == 0) {
-                        bounds = new Rectangle2D.Double(out.x, out.y, 0, 0);
+                        bounds = new Rectangle2D(out.x, out.y, 0, 0);
                     } else {
                         bounds.add(out.x, out.y);
                     }

@@ -33,7 +33,7 @@ package com.jhlabs.map.proj;
 import java.io.*;
 import java.util.*;
 import com.jhlabs.map.*;
-import java.awt.geom.Point2D;
+import com.jhlabs.geom.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -459,7 +459,7 @@ public class ProjectionFactory {
                 if (!arg.startsWith("+") && !arg.startsWith("-")) {
                     try {
                         BufferedReader reader = new BufferedReader(new FileReader(new File(args[i])));
-                        Point2D.Double p = new Point2D.Double();
+                        Point2D p = new Point2D();
                         String line;
                         while ((line = reader.readLine()) != null) {
                             StringTokenizer t = new StringTokenizer(line, " ");

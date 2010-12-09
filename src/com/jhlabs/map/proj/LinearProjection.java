@@ -16,12 +16,12 @@ limitations under the License.
 
 package com.jhlabs.map.proj;
 
-import java.awt.*;
-import java.awt.geom.*;
+
+import com.jhlabs.geom.*;
 
 public class LinearProjection extends Projection {
 	
-	public Point2D.Double transform(Point2D.Double src, Point2D.Double dst) {
+	public Point2D transform(Point2D src, Point2D dst) {
 		dst.x = src.x;
 		dst.y = src.y;
 		return dst;
@@ -34,7 +34,7 @@ public class LinearProjection extends Projection {
 		}
 	}
 
-	public Point2D.Double inverseTransform(Point2D.Double src, Point2D.Double dst) {
+	public Point2D inverseTransform(Point2D src, Point2D dst) {
 		dst.x = src.x;
 		dst.y = src.y;
 		return dst;

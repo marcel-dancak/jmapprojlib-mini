@@ -24,7 +24,7 @@ limitations under the License.
  */
 package com.jhlabs.map.proj;
 
-import java.awt.geom.*;
+import com.jhlabs.geom.*;
 import com.jhlabs.map.*;
 
 /**
@@ -112,7 +112,7 @@ public class TransverseMercatorProjection extends CylindricalProjection {
         initialize();
     }
 
-    public Point2D.Double project(double lplam, double lpphi, Point2D.Double xy) {
+    public Point2D project(double lplam, double lpphi, Point2D xy) {
         if (spherical) {
             final double cosphi = Math.cos(lpphi);
             double b = cosphi * Math.sin(lplam);
@@ -159,7 +159,7 @@ public class TransverseMercatorProjection extends CylindricalProjection {
         return xy;
     }
 
-    public Point2D.Double projectInverse(double x, double y, Point2D.Double out) {
+    public Point2D projectInverse(double x, double y, Point2D out) {
         if (spherical) {
             /*
             Original code

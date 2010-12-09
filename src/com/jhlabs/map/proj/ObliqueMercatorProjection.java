@@ -19,7 +19,7 @@ limitations under the License.
  */
 package com.jhlabs.map.proj;
 
-import java.awt.geom.*;
+import com.jhlabs.geom.*;
 import com.jhlabs.map.*;
 
 /**
@@ -157,7 +157,7 @@ public class ObliqueMercatorProjection extends CylindricalProjection {
         }
     }
 
-    public Point2D.Double project(double lam, double phi, Point2D.Double xy) {
+    public Point2D project(double lam, double phi, Point2D xy) {
         double con, q, s, ul, us, vl, vs;
 
         vl = Math.sin(bl * lam);
@@ -194,7 +194,7 @@ public class ObliqueMercatorProjection extends CylindricalProjection {
         return xy;
     }
 
-    public Point2D.Double projectInverse(double x, double y, Point2D.Double lp) {
+    public Point2D projectInverse(double x, double y, Point2D lp) {
         double q, s, ul, us, vl, vs;
 
         if (!rot) {

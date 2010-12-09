@@ -23,7 +23,7 @@ limitations under the License.
  */
 package com.jhlabs.map.proj;
 
-import java.awt.geom.*;
+import com.jhlabs.geom.*;
 import com.jhlabs.map.*;
 
 public class MercatorProjection extends CylindricalProjection {
@@ -33,7 +33,7 @@ public class MercatorProjection extends CylindricalProjection {
         maxLatitude = MapMath.degToRad(85);
     }
 
-    public Point2D.Double project(double lam, double phi, Point2D.Double out) {
+    public Point2D project(double lam, double phi, Point2D out) {
         if (spherical) {
             out.x = scaleFactor * lam;
             out.y = scaleFactor * Math.log(Math.tan(MapMath.QUARTERPI + 0.5 * phi));
@@ -44,7 +44,7 @@ public class MercatorProjection extends CylindricalProjection {
         return out;
     }
 
-    public Point2D.Double projectInverse(double x, double y, Point2D.Double out) {
+    public Point2D projectInverse(double x, double y, Point2D out) {
         if (spherical) {
             out.y = MapMath.HALFPI - 2. * Math.atan(Math.exp(-y / scaleFactor));
             out.x = x / scaleFactor;

@@ -22,7 +22,7 @@ limitations under the License.
  */
 package com.jhlabs.map;
 
-import java.awt.geom.*;
+import com.jhlabs.geom.*;
 import com.jhlabs.map.proj.*;
 
 public class MapMath {
@@ -32,8 +32,8 @@ public class MapMath {
 	public final static double TWOPI = Math.PI*2.0;
 	public final static double RTD = 180.0/Math.PI;
 	public final static double DTR = Math.PI/180.0;
-	public final static Rectangle2D WORLD_BOUNDS_RAD = new Rectangle2D.Double(-Math.PI, -Math.PI/2, Math.PI*2, Math.PI);
-	public final static Rectangle2D WORLD_BOUNDS = new Rectangle2D.Double(-180, -90, 360, 180);
+	public final static Rectangle2D WORLD_BOUNDS_RAD = new Rectangle2D(-Math.PI, -Math.PI/2, Math.PI*2, Math.PI);
+	public final static Rectangle2D WORLD_BOUNDS = new Rectangle2D(-180, -90, 360, 180);
 
 	/**
 	 * Degree versions of trigonometric functions
@@ -86,7 +86,7 @@ public class MapMath {
 		return Math.sqrt(dx*dx+dy*dy);
 	}
 
-	public static double distance(Point2D.Double a, Point2D.Double b) {
+	public static double distance(Point2D a, Point2D b) {
 		return distance(a.x-b.x, a.y-b.y);
 	}
 
@@ -191,14 +191,14 @@ public class MapMath {
 	}
 	
 /*
-	public static void latLongToXYZ(Point2D.Double ll, Point3D xyz) {
+	public static void latLongToXYZ(Point2D ll, Point3D xyz) {
 		double c = Math.cos(ll.y);
 		xyz.x = c * Math.cos(ll.x);
 		xyz.y = c * Math.sin(ll.x);
 		xyz.z = Math.sin(ll.y);
 	}
 
-	public static void xyzToLatLong(Point3D xyz, Point2D.Double ll) {
+	public static void xyzToLatLong(Point3D xyz, Point2D ll) {
 		ll.y = MapMath.asin(xyz.z);
 		ll.x = MapMath.atan2(xyz.y, xyz.x);
 	}
@@ -248,7 +248,7 @@ public class MapMath {
 	public final static int DO_INTERSECT = 1;
 	public final static int COLLINEAR = 2;
 
-	public static int intersectSegments(Point2D.Double aStart, Point2D.Double aEnd, Point2D.Double bStart, Point2D.Double bEnd, Point2D.Double p) {
+	public static int intersectSegments(Point2D aStart, Point2D aEnd, Point2D bStart, Point2D bEnd, Point2D p) {
 		double a1, a2, b1, b2, c1, c2;
 		double r1, r2, r3, r4;
 		double denom, offset, num;
@@ -286,27 +286,27 @@ public class MapMath {
 		return DO_INTERSECT;
 	}
 
-	public static double dot(Point2D.Double a, Point2D.Double b) {
+	public static double dot(Point2D a, Point2D b) {
 		return a.x*b.x + a.y*b.y;
 	}
 	
-	public static Point2D.Double perpendicular(Point2D.Double a) {
-		return new Point2D.Double(-a.y, a.x);
+	public static Point2D perpendicular(Point2D a) {
+		return new Point2D(-a.y, a.x);
 	}
 	
-	public static Point2D.Double add(Point2D.Double a, Point2D.Double b) {
-		return new Point2D.Double(a.x+b.x, a.y+b.y);
+	public static Point2D add(Point2D a, Point2D b) {
+		return new Point2D(a.x+b.x, a.y+b.y);
 	}
 	
-	public static Point2D.Double subtract(Point2D.Double a, Point2D.Double b) {
-		return new Point2D.Double(a.x-b.x, a.y-b.y);
+	public static Point2D subtract(Point2D a, Point2D b) {
+		return new Point2D(a.x-b.x, a.y-b.y);
 	}
 	
-	public static Point2D.Double multiply(Point2D.Double a, Point2D.Double b) {
-		return new Point2D.Double(a.x*b.x, a.y*b.y);
+	public static Point2D multiply(Point2D a, Point2D b) {
+		return new Point2D(a.x*b.x, a.y*b.y);
 	}
 	
-	public static double cross(Point2D.Double a, Point2D.Double b) {
+	public static double cross(Point2D a, Point2D b) {
 		return a.x*b.y - b.x*a.y;
 	}
 
@@ -314,13 +314,13 @@ public class MapMath {
 		return x1*y2 - x2*y1;
 	}
 
-	public static void normalize(Point2D.Double a) {
+	public static void normalize(Point2D a) {
 		double d = distance(a.x, a.y);
 		a.x /= d;
 		a.y /= d;
 	}
 	
-	public static void negate(Point2D.Double a) {
+	public static void negate(Point2D a) {
 		a.x = -a.x;
 		a.y = -a.y;
 	}

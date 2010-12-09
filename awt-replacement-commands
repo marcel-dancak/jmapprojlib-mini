@@ -1,0 +1,4 @@
+find -name "*.java" -exec sed -i 's/Point2D.Double/Point2D/g' {} \;
+find -name "*.java" -exec sed -i 's/Rectangle2D.Double/Rectangle2D/g' {} \;
+find -name "*.java" -exec sed -i 's/import java.awt.geom.*;/import com.jhlabs.geom.*;/g' {} \;
+find -name "*.java" -exec sed -i 's/import java.awt.*;//g' {} \;
